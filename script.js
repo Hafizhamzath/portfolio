@@ -1,11 +1,26 @@
-// Smooth scrolling
+// Navbar toggle functionality
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('.nav-menu');
+
+navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+});
+
+// Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            // Close mobile menu after clicking a link
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+            }
+        }
     });
 });
 
@@ -15,11 +30,13 @@ window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-// Scroll animations
+// Scroll animations for fade-in sections
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            // Optionally unobserve after animation to improve performance
+            observer.unobserve(entry.target);
         }
     });
 }, { threshold: 0.1 });
@@ -112,7 +129,7 @@ class Dot {
 // Initialize dots
 function initDots() {
     dots = [];
-    const numberOfDots = 50; // Adjust for density
+    const numberOfDots = Math.floor((window.innerWidth * window.innerHeight) / 10000); // Scale dots based on screen size
     for (let i = 0; i < numberOfDots; i++) {
         dots.push(new Dot());
     }
@@ -123,20 +140,13 @@ initDots();
 canvas.addEventListener('mousemove', (event) => {
     const rect = canvas.getBoundingClientRect();
     mouse.x = event.clientX - rect.left;
-    mouse.y = event.clientY - rect.top + window.scrollY; // Adjust for scroll position
+    mouse.y = event.clientY - rect.top;
 });
 
 // Reset mouse position when it leaves the canvas
 canvas.addEventListener('mouseleave', () => {
     mouse.x = undefined;
     mouse.y = undefined;
-});
-
-// Update mouse position on scroll to keep interaction accurate
-window.addEventListener('scroll', () => {
-    if (mouse.x !== undefined && mouse.y !== undefined) {
-        mouse.y = mouse.y - window.scrollY + window.scrollY; // Adjust for scroll
-    }
 });
 
 // Animation loop

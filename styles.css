@@ -63,11 +63,23 @@ nav.scrolled {
     box-shadow: 0 4px 15px rgba(0, 221, 235, 0.3);
 }
 
-nav ul {
+.nav-toggle {
+    display: none;
+    font-size: 1.8rem;
+    color: #00ddeb;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.nav-menu {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 3rem; /* Increased spacing for modern look */
+    gap: 3rem;
+}
+
+.nav-menu.active {
+    display: flex;
 }
 
 nav a {
@@ -195,7 +207,8 @@ section {
 /* Skills Section */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* Exactly 2 columns */
+    grid-template-rows: auto auto auto; /* 3 rows to accommodate 5 cards */
     gap: 2rem;
     margin-top: 2rem;
 }
@@ -210,6 +223,15 @@ section {
     text-align: center;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px; /* Ensure consistent height */
+}
+
+.skill-card:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 221, 235, 0.5);
+    border-color: rgba(0, 221, 235, 0.6);
 }
 
 .skill-card::before {
@@ -244,12 +266,6 @@ section {
     background: linear-gradient(135deg, rgba(0, 221, 235, 0.2), transparent);
 }
 
-.skill-card:hover {
-    transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 221, 235, 0.5);
-    border-color: rgba(0, 221, 235, 0.6);
-}
-
 .skill-card:hover::before {
     opacity: 0.3;
 }
@@ -277,6 +293,7 @@ section {
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: center;
+    flex-grow: 1; /* Allow tags to take available space */
 }
 
 .skill-tag {
@@ -314,8 +331,10 @@ section {
 /* Projects Section */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* Exactly 2 columns */
+    grid-template-rows: repeat(2, auto); /* 2 rows */
     gap: 2rem;
+    margin-top: 2rem;
 }
 
 .project-card {
@@ -324,6 +343,9 @@ section {
     border-radius: 12px;
     border: 1px solid rgba(0, 221, 235, 0.2);
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px; /* Ensure consistent height */
 }
 
 .project-card:hover {
@@ -340,6 +362,7 @@ section {
 .project-card p {
     font-size: 1rem;
     margin-bottom: 1rem;
+    flex-grow: 1; /* Allow description to take available space */
 }
 
 .project-tech {
@@ -360,7 +383,7 @@ section {
 .project-links {
     display: flex;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: auto; /* Push links to the bottom */
 }
 
 .live-site-button, .github-button {
@@ -548,13 +571,49 @@ footer {
     .hero h1 { font-size: 2.5rem; }
     .hero p { font-size: 1.2rem; }
     .section-title { font-size: 2rem; }
-    nav ul {
+    
+    .nav-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 1.2rem;
+    }
+    
+    .nav-menu {
+        display: none;
         flex-direction: column;
         gap: 1.5rem;
         padding: 1rem 0;
+        background: rgba(26, 26, 26, 0.95);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        text-align: center;
     }
-    .projects-grid { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr; }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically on mobile */
+        grid-template-rows: auto; /* Auto rows for stacking */
+    }
+    
+    .skill-card {
+        min-height: 180px; /* Slightly smaller for mobile */
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically on mobile */
+        grid-template-rows: auto; /* Auto rows for stacking */
+    }
+    
+    .project-card {
+        min-height: 300px; /* Slightly smaller for mobile */
+    }
+    
     .project-links {
         flex-direction: column;
         gap: 0.5rem;
