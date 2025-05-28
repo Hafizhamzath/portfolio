@@ -357,7 +357,13 @@ section {
     font-size: 0.85rem;
 }
 
-.live-site-button {
+.project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.live-site-button, .github-button {
     display: inline-block;
     padding: 0.6rem 1.5rem;
     background: #00ddeb;
@@ -370,10 +376,24 @@ section {
     box-shadow: 0 4px 15px rgba(0, 221, 235, 0.3);
 }
 
-.live-site-button:hover {
+.github-button {
+    background: #1a1a1a;
+    border: 1px solid #00ddeb;
+    color: #ffffff;
+}
+
+.live-site-button:hover, .github-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 221, 235, 0.5);
+}
+
+.live-site-button:hover {
     background: #00c4d4;
+}
+
+.github-button:hover {
+    background: #00ddeb;
+    color: #1a1a1a;
 }
 
 /* Experience & Education Section */
@@ -535,4 +555,8 @@ footer {
     }
     .projects-grid { grid-template-columns: 1fr; }
     .skills-grid { grid-template-columns: 1fr; }
+    .project-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }
