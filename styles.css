@@ -82,6 +82,18 @@ nav.scrolled {
     display: flex;
 }
 
+.timeline-item ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+}
+
+.timeline-item ul li {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+    list-style-type: disc;
+}
+
+
 nav a {
     color: #ffffff;
     text-decoration: none;
